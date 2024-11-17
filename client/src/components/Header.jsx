@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FaSearch, FaUserCircle } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "react-router-dom";
+import { UserContext } from "../UserContext.jsx";
 const Header = () => {
+  const { user } = useContext(UserContext);
   return (
     <div>
       <div>
@@ -24,7 +26,7 @@ const Header = () => {
             </button>
           </div>
           <Link
-            to={"/login"}
+            to={user ? "/account" : "/login"}
             className="flex gap-2 border border-gray-300 rounded-full py-2 px-4 items-center shadow-sm shadow-gray-300"
           >
             <GiHamburgerMenu />
@@ -32,6 +34,7 @@ const Header = () => {
               {" "}
               <FaUserCircle />{" "}
             </div>
+            {!!user && <div>{user.username}</div>}
           </Link>
         </header>
       </div>
