@@ -2,6 +2,8 @@ import { useContext, useState } from "react";
 import { UserContext } from "../UserContext.jsx";
 import { Link, Navigate, useParams } from "react-router-dom";
 import axios from "axios";
+import PlacesPage from "./PlacesPage.jsx";
+import { FaCalendar, FaHome, FaUser } from "react-icons/fa";
 
 const AccountPage = () => {
   const [redirect, setRedirect] = useState(null);
@@ -15,7 +17,7 @@ const AccountPage = () => {
   async function logout() {
     await axios.post("/logout");
     setRedirect("/");
-    setUser(null)
+    setUser(null);
   }
   if (loading) {
     return "Loading...";
@@ -25,14 +27,16 @@ const AccountPage = () => {
   }
 
   function linkClasses(type = null) {
-    let classes = "py-2 px-6";
+    let classes = "inline-flex py-2 px-6 gap-2 rounded-full ";
     if (type === subpage) {
-      classes += "py-2 px-4 bg-primary rounded-full text-white";
+      classes += "py-2 px-4 bg-primary  text-white";
+    } else {
+      classes += "bg-gray-200";
     }
     return classes;
   }
-  if(redirect){
-    return <Navigate to={redirect}/>
+  if (redirect) {
+    return <Navigate to={redirect} />;
   }
 
   console.log(subpage);
@@ -40,12 +44,15 @@ const AccountPage = () => {
     <div>
       <nav className={"w-full flex justify-center my-8 gap-2"}>
         <Link to={"/account"} className={linkClasses("profile")}>
+          <FaUser className="mt-1" />
           My Account
         </Link>
         <Link to={"/account/bookings"} className={linkClasses("bookings")}>
+          <FaCalendar className="mt-1" />
           My Bookings
         </Link>
         <Link to={"/account/places"} className={linkClasses("places")}>
+          <FaHome className="mt-1" />
           My Accommodations
         </Link>
       </nav>
@@ -57,6 +64,7 @@ const AccountPage = () => {
           </button>
         </div>
       )}
+      {subpage === "places" && <PlacesPage />}
     </div>
   );
 };

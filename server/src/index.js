@@ -87,9 +87,9 @@ app.get("/profile", async (req, res) => {
   }
 });
 
-app.post("/logout" , async(req, res)=> {
-  res.cookie('token', '').json(true)
-})
+app.post("/logout", async (req, res) => {
+  res.cookie("token", "").json(true);
+});
 
 const port = process.env.PORT;
 

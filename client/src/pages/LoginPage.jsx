@@ -6,13 +6,13 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState("");
-  const {setUser} = useContext(UserContext)
+  const { setUser } = useContext(UserContext);
   async function handleLoginSubmit(ev) {
     ev.preventDefault();
 
     try {
-      const {data} = await axios.post("/login", { email, password });
-      setUser(data)
+      const { data } = await axios.post("/login", { email, password });
+      setUser(data);
       alert("Login Successful");
       setRedirect(true);
     } catch (error) {
